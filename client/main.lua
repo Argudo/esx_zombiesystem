@@ -10,6 +10,8 @@ end)
 RegisterNetEvent('esx:playerLoaded')
 AddEventHandler('esx:playerLoaded', function(xPlayer)
 	PlayerData = xPlayer
+	zonahorda = false
+	zonaconquista = false
 end)
 
 local Models = {
@@ -311,6 +313,8 @@ local walks = {
 }
 
 players = {}
+EntityBlip = {}
+Blips = {}
 
 RegisterNetEvent("esx_zombiesystem:playerupdate")
 AddEventHandler("esx_zombiesystem:playerupdate", function(mPlayers)
@@ -412,7 +416,7 @@ AddEventHandler("ZombieSync", function()
 					local model = GetEntityModel(entity)
 					SetEntityAsNoLongerNeeded(entity)
 					SetModelAsNoLongerNeeded(model)
-					--Citizen.Trace("Zombie Eliminated\n")
+					Citizen.Trace("Zombie Eliminated\n")
 					table.remove(entitys, i)
 				end
 			end
@@ -436,7 +440,7 @@ Citizen.CreateThread(function()
 			for j, player in pairs(players) do
 				local playerX, playerY, playerZ = table.unpack(GetEntityCoords(GetPlayerPed(player), true))
 				local distance = GetDistanceBetweenCoords(GetEntityCoords(GetPlayerPed(player)), GetEntityCoords(entity), true)
-				if distance <= 25.0 then
+				if distance <= 25.0 or zonaconquista == true then
 					--TaskGoStraightToCoord(entity, playerX, playerY, playerZ, 1.0, -1, 0,0)
 					TaskGoToEntity(entity, GetPlayerPed(player), -1, 0.0, 1.0, 1073741824, 0)
 				end
@@ -551,6 +555,101 @@ if Config.SafeZoneRadioBlip then
 		SetBlipAlpha (blip, 128)
 	end
 end
+
+--Hordas
+if Config.HordeZoneBlip then
+	for k, v in pairs(Config.HordeZoneCoords) do
+		blip2 = AddBlipForRadius(v.x, v.y, v.z, v.radio)
+		SetBlipHighDetail(blip2, true)
+		SetBlipColour(blip2, 1)
+		SetBlipAlpha(blip2, 128)
+	end
+end
+
+if Config.HordeZone then
+	Citizen.CreateThread(function()
+		while true do
+			Citizen.Wait(1)
+			posact = GetEntityCoords(GetPlayerPed(-1))
+			for k, v in pairs(Config.HordeZoneCoords) do
+				if(Vdist(posact.x, posact.y, posact.z, v.x, v.y, v.z) < v.radio)then -- Dentro de la zona de hordas
+					if zonahorda == false then
+						ESX.ShowNotification("Entrando en la zona de horda")
+					end
+					zonahorda = true
+					Config.SpawnZombie = Config.SpawnZombieHorde
+				end
+				Citizen.Wait(200)
+				if((Vdist(posact.x, posact.y, posact.z, v.x, v.y, v.z) > v.radio) and zonahorda == true)then 
+					zonahorda = false
+					Config.SpawnZombie = Config.AuxiliarSpawn
+					ESX.ShowNotification("Saliendo de la zona de horda")
+					print(Config.SpawnZombie)
+				end
+			end
+		end
+	end)
+end
+-- Fin Hordas
+
+-- Conquista
+if Config.ConquestZoneBlip then
+	for i, j in pairs (Config.ConquestZoneCoords) do
+		blip3 = AddBlipForRadius(j.x, j.y, j.z, j.radio)
+		SetBlipHighDetail(blip3, true)
+		SetBlipColour(blip3, 3)
+		SetBlipAlpha(blip3, 128)
+	end
+end
+
+if Config.ConquestZone then
+	Citizen.CreateThread(function()
+		local random = math.random(2,5)*10
+		while true do
+			Citizen.Wait(1)
+			posact = GetEntityCoords(GetPlayerPed(-1))
+			for k, v in pairs(Config.ConquestZoneCoords) do
+				if(Vdist(posact.x, posact.y, posact.z, v.x, v.y, v.z) < v.radio)then
+					if zonaconquista == false then
+						local random = 10-- math.random(1,2)*10
+					end
+					ESX.ShowNotification("~r~Zombies restantes hasta desinfeccion " .. random, true)
+					zonaconquista = true
+					Config.SpawnZombie = random
+					Config.MinSpawnDistance = v.radio/4
+					Config.MaxSpawnDistance = v.radio/2
+					for i, entity in pairs(entitys) do
+						if IsPedDeadOrDying(entity, 1) == 1 then
+							table.remove(entitys, i)
+							random = random - 1
+							if random <= 0 then
+								ESX.ShowNotification("~g~La zona ha sido desinfectada con exito")
+							else
+								ESX.ShowNotification("~r~Zombies restantes hasta desinfeccion " .. random,true)
+							end
+						end
+					end
+				end
+				Citizen.Wait(100)
+				if((Vdist(posact.x, posact.y, posact.z, v.x, v.y, v.z) > v.radio) and zonaconquista == true)then
+					zonaconquista = false
+					Config.SpawnZombie = Config.AuxiliarSpawn
+					Config.MaxSpawnDistance = Config.AuxiliarMaxSpawn
+					if random >= 0 then
+						print("Completado")
+						ESX.ShowNotification("~r~Desinfeccion no completada")
+					else
+						table.insert(Config.SafeZoneCoords, Config.ConquestZoneCoords[k])
+						table.remove(Config.ConquestZoneCoords, k)
+						RemoveBlip(blip2)
+						SetBlipAlpha(blip2, 0)
+					end 
+				end
+			end
+		end
+	end)
+end
+-- FIn Conquista 
 
 if Config.SafeZone then
 	Citizen.CreateThread(function()

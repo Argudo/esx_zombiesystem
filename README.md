@@ -1,4 +1,4 @@
-# esx_zombiesystem
+# esx_zombiesystem v2
 This is a zombie system, complemented with ESX
 * Loot from zombies (Weapons, items and money)
 * Loot probability
@@ -6,6 +6,8 @@ This is a zombie system, complemented with ESX
 * Hordes
 * Zombie attack proximity
 * Safe Zones
+* Horde Zones
+* Conquest Zones
 * Loot Objects
 
 ## How install
