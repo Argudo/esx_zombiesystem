@@ -27,7 +27,7 @@ Tener instalado y configurado un servidor Five M con ESX
 
 ## Autores ✒️
 * **Dislaik** - *Trabajo Inicial* - [Dislaik](https://github.com/Dislaik)
-* **ArgDev** - *Continuacion del desarrollo* - [ArgDev](#ArgDev)
+* **ArgDev** - *Continuacion del desarrollo* - [ArgDev](https://github.com/Argudo)
 
 ## Licencia 📄
 
