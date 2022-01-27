@@ -34,7 +34,7 @@ Tener instalado y configurado un servidor Five M con ESX
 Este proyecto está bajo la Licencia GPL 3 - mira el archivo [LICENSE.md](LICENSE.md) para más detalles
 
 ## YouTube 🎞️
-[![Alt text](https://img.youtube.com/vi/BVWm5Alp7x8/0.jpg)](https://www.youtube.com/watch?v=configuroweb)
+[![Alt text](https://img.youtube.com/vi/BVWm5Alp7x8/0.jpg)](https://www.youtube.com/watch?v=BVWm5Alp7x8)
 
 ## Imágenes 📸
 ![Image description](https://i.imgur.com/uq8WBRI.png)
