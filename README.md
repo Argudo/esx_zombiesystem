@@ -1,20 +1,45 @@
-# esx_zombiesystem v2
-This is a zombie system, complemented with ESX
-* Loot from zombies (Weapons, items and money)
-* Loot probability
-* Follow the closest player
-* Hordes
-* Zombie attack proximity
-* Safe Zones
-* Horde Zones
-* Conquest Zones
-* Loot Objects
+# APOCALYPSE (esx_zombiesystem v2)
+Sistema de zombies para servidores Five M con implementación para ESX
 
-## How install
-1. Download the github repository
-2. Drop the files in your [resource] folder
-3. Don't forget add ensure esx_zombiesystem in your server.cfg file
-4. Configure to your liking
+## Funcionalidades ⚙️
 
-## Screenshots
+* Loot de zombies (Armas, objetos y dinero)
+* Proobabilidad de looteo
+* Seguimiento del jugador mas cercano
+* Hordas
+* Ataque de zombies por proximidad
+* Zonas Seguras
+* Zonas de Hordas
+* Zonas de Desinfeccion y Conquista
+* Looteo de objetos
+
+
+### Pre-requisitos 📋
+
+Tener instalado y configurado un servidor Five M con ESX
+
+### Instalación 🔧
+
+1. Descargar el repositorio de github
+2. Arrastra los archivos en tu carpeta [resource]
+3. No olvides añadir 'ensure esx_zombiesystem' en tu archivo 'server.cfg'
+4. Configuralo a tu gusto
+
+## Autores ✒️
+* **Dislaik** - *Trabajo Inicial* - [Dislaik](https://github.com/Dislaik)
+* **ArgDev** - *Continuacion del desarrollo* - [ArgDev](#ArgDev)
+
+## Licencia 📄
+
+Este proyecto está bajo la Licencia GPL 3 - mira el archivo [LICENSE.md](LICENSE.md) para más detalles
+
+## YouTube 🎞️
+[![Alt text](https://img.youtube.com/vi/BVWm5Alp7x8/0.jpg)](https://www.youtube.com/watch?v=configuroweb)
+
+## Imágenes 📸
+![Image description](https://i.imgur.com/uq8WBRI.png)
+![Image description](https://i.imgur.com/QquUCXq.png)
+![Image description](https://i.imgur.com/zpYMVoG.png)
+![Image description](https://i.imgur.com/y2NAq3y.png)
 ![Image description](https://i.imgur.com/D5DvLeg.png)
+
